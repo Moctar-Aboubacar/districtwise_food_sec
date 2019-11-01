@@ -24,7 +24,7 @@ table.1 <- table.1 %>%
          district !="Darchula") %>% 
   arrange(desc(FC_score))
 
-# plot
+# plot1
 ggplot(table.1, aes(x = reorder(district, - FC_score), y = FC_score))+
   geom_point(shape = 15,
              size = 3)+
@@ -40,9 +40,10 @@ ggplot(table.1, aes(x = reorder(district, - FC_score), y = FC_score))+
   theme_calc()
 
 # conclusion
-## As feared, our survey design is adapted to the ecological belt, and is not good for producing results at the district level. How about by strata?
+## As feared, our survey design is adapted to the ecological belt, and is not good for producing results at the district level. 
+# How about by strata?
 # test if we looked at different strata from the survey only.
-# result: 95% CIs of about 5-7 FCS points. Much tigher. Makes sense as the sample is much bigger. Still there is a lot of overlap... our survey isn't that precise darn...
+# result: 95% CIs of about 5-7 FCS points. Much tigher. Makes sense as the sample is much bigger. 
 
 table.test <- svyby(~FC_score, ~strata, svymean, design = svy.dat)
 
@@ -51,7 +52,7 @@ table.test <- table.test %>%
          upper_bound = FC_score + (1.96*se)) %>% 
   arrange(desc(FC_score))
 
-# test plot
+# plot2
 ggplot(table.test, aes(x = reorder(strata, - FC_score), y = FC_score))+
   geom_point(shape = 15,
              size = 3)+
